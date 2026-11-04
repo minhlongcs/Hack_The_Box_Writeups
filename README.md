@@ -2,7 +2,7 @@
 
 Personal Hack The Box notes: course material, machine writeups, and Sherlock (DFIR) writeups.
 
-This is an export of an Obsidian vault, so some notes use Obsidian's `![[image.png]]` embed syntax, which won't render as inline images on GitHub — open the notes in Obsidian (or any Markdown viewer that supports wikilinks) for the full experience.
+This is an export of an Obsidian vault. Screenshots live at the repo root and are embedded with standard Markdown image links, so they render directly on GitHub.
 
 ## Structure
 

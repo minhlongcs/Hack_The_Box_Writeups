@@ -26,7 +26,7 @@ Artifacts: `PhantomCheck.zip` → Microsoft_Window_Powershell.sxtv and Windows_P
 ### Task 1: Which WMI class did the attacker use to retrieve model and manufacturer information for virtualization detection?
 
 - After a quick google search on what WMI is and which WMI can be used to perform the mentioned task: The WMI class used to retrieve a computer's model and manufacturer data is `Win32_ComputerSystem`
-- Now on M_W_P file we can do a quick search for that keyword we can see that the attacker did indeed request the computer system info: ![[Pasted image 20261027222348.png]]
+- Now on M_W_P file we can do a quick search for that keyword we can see that the attacker did indeed request the computer system info: ![](../Pasted%20image%2020261027222348.png)
 
 ```
   Pipeline execution details for command line: $Model = Get-WmiObject -Class Win32_ComputerSystem | select-object -expandproperty "Model". 
@@ -61,7 +61,7 @@ ParameterBinding(Select-Object): name="InputObject"; value="\\DESKTOP-M3AKJSD\ro
 ### Task 2: Which WMI query did the attacker execute to retrieve the current temperature value of the machine?
 
 - A quick keyword search of "temperature" gets us:
-- ![[Pasted image 20261027223013.png]]
+- ![](../Pasted%20image%2020261027223013.png)
 - Answer: SELECT * FROM MSAcpi_ThermalZoneTemperature
 
 ### Task 3: The attacker loaded a PowerShell script to detect virtualization. What is the function name of the script?
@@ -77,7 +77,7 @@ ParameterBinding(Select-Object): name="InputObject"; value="\\DESKTOP-M3AKJSD\ro
 - **Event ID 400:** Logs when the local **PowerShell engine starts** up to process commands or scripts.
 
 - Now lets do a quick filter for event id 4104 in M_W_P we find:
-- ![[Pasted image 20261027224426.png]]
+- ![](../Pasted%20image%2020261027224426.png)
 
 ```
 Creating Scriptblock text (1 of 1):

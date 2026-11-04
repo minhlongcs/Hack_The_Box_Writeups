@@ -68,7 +68,7 @@ course: Linux Fundamentals
 4. **System utilities**: tools that expose OS functionality to the user.
 
 ### File System Hierarchy
-![[Pasted image 20260928114442.png]]
+![](../Pasted%20image%2020260928114442.png)
 
 | Path | Description |
 |---|---|

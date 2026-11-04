@@ -61,7 +61,7 @@ sudo nano etc/hosts
 
 truy cập http://<ip>
 
-![[Pasted image 20261013211513.png]]
+![](../Pasted%20image%2020261013211513.png)
 
 ấn vào client login --> 
 
@@ -70,7 +70,7 @@ redirect to https://sso.management.htb/openam/XUI/#login/
 ```
 we see that this website use openam to authenticate
 
-![[Pasted image 20261013220446.png]]
+![](../Pasted%20image%2020261013220446.png)
 
 --> we found out that openam is on ver16.0.5
 

@@ -51,8 +51,8 @@ To solve this Sherlock follow the below steps:
 As part of the HTB partnership with Semperis this is an opportunity for players to assess Active Directory for vulnerabilities using the Purple Knight tool, and perform remediation actions against some of the riskier findings.
 
 Credentials for Purple Knight:
-![[Pasted image 20261103214749.png]]
-![[Pasted image 20261103224912.png]]
+![](../Pasted%20image%2020261103214749.png)
+![](../Pasted%20image%2020261103224912.png)
 
 ---
 
@@ -65,17 +65,17 @@ Credentials for Purple Knight:
 
 ### Running the scan
 1. RDP into the given desktop with the given credentials (username: `FORELA\analyst`):
-   ![[Pasted image 20261103224444.png]]
+   ![](../Pasted%20image%2020261103224444.png)
 2. Run PurpleKnight as Administrator on the RDP machine:
-   ![[Pasted image 20261103225646.png]]
+   ![](../Pasted%20image%2020261103225646.png)
 3. Enter `forela.local` as the Active Directory forest to assess:
-   ![[Pasted image 20261103231058.png]]
+   ![](../Pasted%20image%2020261103231058.png)
 4. Click **Run Tests**:
-   ![[Pasted image 20261104001043.png]]
+   ![](../Pasted%20image%2020261104001043.png)
 5. When the scan finishes, view the results:
-   ![[Pasted image 20261104024752.png]]
+   ![](../Pasted%20image%2020261104024752.png)
 6. Open the full PDF report, which is where most answers come from:
-   ![[Pasted image 20261104030250.png]]
+   ![](../Pasted%20image%2020261104030250.png)
 
 ---
 
@@ -83,34 +83,34 @@ Credentials for Purple Knight:
 
 ### Task 1: How many Indicators were evaluated as part of the full scan?
 
-![[Pasted image 20261104030429.png]]
+![](../Pasted%20image%2020261104030429.png)
 
 - Answer: 116
 
 ### Task 2: How many users were identified as being vulnerable to the "Privileged Users with Weak Password Policy" finding?
 
-![[Pasted image 20261104030901.png]]
+![](../Pasted%20image%2020261104030901.png)
 
 - Answer: 4
 
 ### Task 3: Enforce a modern minimum password length of 15 characters for standard users by implementing a Fine-Grained Password Policy on the `Domain Users` group.
 
 - Microsoft guide: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/adac/fine-grained-password-policies?tabs=adac
-  ![[Pasted image 20261104102203.png]]
+  ![](../Pasted%20image%2020261104102203.png)
 - I used **Active Directory Administrative Center**:
-  ![[Pasted image 20261104103012.png]]
+  ![](../Pasted%20image%2020261104103012.png)
 1. Navigate to **forela (local)** → **System** → **Password Settings Container**.
 2. In the **Tasks** pane, choose **New** → **Password Settings**.
 3. Fill in the property page to create a new **Password Settings** object. **Name** and **Precedence** are required.
-   ![[Pasted image 20261104103522.png]]
+   ![](../Pasted%20image%2020261104103522.png)
 4. Set **Minimum password length** to `15`, and under **Directly Applies To** add `Domain Users`.
 
 - Flag:
-  ![[Pasted image 20261104103841.png]]
+  ![](../Pasted%20image%2020261104103841.png)
 
 ### Task 4: Review the finding "LDAP signing is not required on Domain Controllers" and the Security Frameworks subsection. What is the first MITRE ATT&CK Tactic listed?
 
-![[Pasted image 20261104103949.png]]
+![](../Pasted%20image%2020261104103949.png)
 
 - Answer: Privilege Escalation
 
@@ -121,18 +121,18 @@ This protects the domain from NTLM Relay and Machine-In-The-Middle attacks.
 - Microsoft guide: https://learn.microsoft.com/en-us/windows-server/identity/manage-ldap-signing-group-policy?tabs=windows-server-2025
 1. Open the **Group Policy Management Console** (`gpmc.msc` from Run, or from the Start Menu).
 2. Expand **Forest: forela.local** to find **Default Domain Controllers Policy** → right-click → **Edit**.
-   ![[Pasted image 20261104105934.png]]
+   ![](../Pasted%20image%2020261104105934.png)
 3. Go to **Default Domain Controllers Policy** → **Computer Configuration** → **Policies** → **Windows Settings** → **Security Settings** → **Local Policies** → **Security Options**.
 4. Right-click **Domain controller: LDAP server signing requirements enforcement** → **Properties** → set to **Require Signing**.
-   ![[Pasted image 20261104110416.png]]
+   ![](../Pasted%20image%2020261104110416.png)
 
 - Flag (after changing the policy setting):
-  ![[Pasted image 20261104110847.png]]
+  ![](../Pasted%20image%2020261104110847.png)
 
 ### Task 6: Review the "Privileged accounts with a password that never expires" finding. According to PurpleKnight, what is the ID associated with the MITRE D3FEND Technique listed?
 
-![[Pasted image 20261104110945.png]]
-![[Pasted image 20261104111037.png]]
+![](../Pasted%20image%2020261104110945.png)
+![](../Pasted%20image%2020261104111037.png)
 
 - Answer: D3-SPP
 
@@ -140,7 +140,7 @@ This protects the domain from NTLM Relay and Machine-In-The-Middle attacks.
 
 1. The Security Indicator lists two affected accounts: `analyst` and `svc_checker`.
 2. Open **Active Directory Users and Computers** → **forela.local** → **Users**.
-   ![[Pasted image 20261104113728.png]]
+   ![](../Pasted%20image%2020261104113728.png)
 3. For `analyst` and `svc_checker`: **Properties** → **Account** → untick **Password never expires**.
 
 After this the flag still hadn't appeared, so I checked PowerShell for other enabled accounts with the flag set:
@@ -161,14 +161,14 @@ UserPrincipalName :
 ```
 
 4. `Administrator` also has it set, so change that account's setting too:
-   ![[Pasted image 20261104120339.png]]
+   ![](../Pasted%20image%2020261104120339.png)
 
 - Flag (after changing all 3 accounts):
-  ![[Pasted image 20261104120654.png]]
+  ![](../Pasted%20image%2020261104120654.png)
 
 ### Task 8: Which attribute needs to be modified to remediate the finding "Unprivileged users can add computer accounts to the domain"?
 
-![[Pasted image 20261104120808.png]]
+![](../Pasted%20image%2020261104120808.png)
 
 - Answer: ms-DS-MachineAccountQuota
 
@@ -180,7 +180,7 @@ Despite being a low severity finding, this is a commonly abused attack vector.
 1. Open **Active Directory Users and Computers** → **View** → enable **Advanced Features**.
 2. Right-click **forela.local** → **Properties** → **Attribute Editor**.
 3. Set `ms-DS-MachineAccountQuota` to `0`.
-   ![[Pasted image 20261104130118.png]]
+   ![](../Pasted%20image%2020261104130118.png)
 
 **Option 2: PowerShell**
 
@@ -208,19 +208,19 @@ Set-ADDomain -Identity (Get-ADDomain).distinguishedname -Replace @{"ms-DS-Machin
 
 ### Task 10: What is the ServicePrincipalName associated with the finding "Privileged users with SPN defined"?
 
-![[Pasted image 20261104124754.png]]
+![](../Pasted%20image%2020261104124754.png)
 
 - Answer: BackupSvc/DC01.forela.local
 
 ### Task 11: According to the "gMSA not in use" finding, which Operating System introduced the group Managed Service Account (gMSA) feature?
 
-![[Pasted image 20261104125418.png]]
+![](../Pasted%20image%2020261104125418.png)
 
 - Answer: Windows Server 2016
 
 ### Task 12: How many SPNs are configured to support RC4 encryption?
 
-![[Pasted image 20261104125552.png]]
+![](../Pasted%20image%2020261104125552.png)
 
 - Answer: 4
 
@@ -262,11 +262,11 @@ Set-ADUser -Identity "svc_sql" -Replace @{'msDS-SupportedEncryptionTypes' = 24}
 > - `24` = 8 + 16: both AES-128 and AES-256, no RC4
 
 - Flag:
-  ![[Pasted image 20261104132140.png]]
+  ![](../Pasted%20image%2020261104132140.png)
 
 ### Task 14: According to the finding "Users with Kerberos pre-authentication disabled", what is the name of the attack that this configuration leaves accounts vulnerable to?
 
-![[Pasted image 20261104131950.png]]
+![](../Pasted%20image%2020261104131950.png)
 
 - Answer: ASREP-Roasting
 
@@ -277,11 +277,11 @@ Set-ADAccountControl -Identity svc_backup -DoesNotRequirePreAuth $false
 ```
 
 - Flag:
-  ![[Pasted image 20261104132452.png]]
+  ![](../Pasted%20image%2020261104132452.png)
 
 ### Task 16: What is the DistinguishedName of the object with Unconstrained Delegation configured?
 
-![[Pasted image 20261104132523.png]]
+![](../Pasted%20image%2020261104132523.png)
 
 - Answer: CN=WEBSERVER01,CN=Computers,DC=forela,DC=local
 
@@ -316,11 +316,11 @@ Set-ADComputer -Identity "WEBSERVER01" -Add @{'msDS-AllowedToDelegateTo'="MSSQLS
 ```
 
 - Flag:
-  ![[Pasted image 20261104133740.png]]
+  ![](../Pasted%20image%2020261104133740.png)
 
 ### Task 18: What is reported as the Identity of the AD Object associated with the Critical finding "Non-default principals with DC Sync rights on the domain"?
 
-![[Pasted image 20261104133519.png]]
+![](../Pasted%20image%2020261104133519.png)
 
 - Answer: FORELA\Auditors
 
@@ -328,7 +328,7 @@ Set-ADComputer -Identity "WEBSERVER01" -Add @{'msDS-AllowedToDelegateTo'="MSSQLS
 
 1. In **Active Directory Users and Computers** (Advanced Features on), right-click **forela.local** → **Properties** → **Security**.
 2. Select **Auditors (FORELA\Auditors)** and untick **Replicating Directory Changes** and **Replicating Directory Changes All**.
-   ![[Pasted image 20261104135602.png]]
+   ![](../Pasted%20image%2020261104135602.png)
 
 - Sherlock solved:
-  ![[Pasted image 20261104135418.png]]
+  ![](../Pasted%20image%2020261104135418.png)
